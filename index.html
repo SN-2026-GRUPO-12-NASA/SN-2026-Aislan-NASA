@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f7f4">
     <title>NASA CMR | Catálogo de coleções</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet">
+
     <style>
         :root {
             color-scheme: light;
@@ -21,7 +23,6 @@
             --line: #dce3df;
             --green: #166a55;
             --green-soft: #e5f1eb;
-            --orange: #d64d2c;
             --shadow: 0 16px 40px rgb(25 47 39 / 7%);
         }
 
@@ -30,12 +31,14 @@
         }
 
         body {
-            margin: 0;
             min-width: 320px;
             min-height: 100vh;
+            margin: 0;
             color: var(--ink);
-            background: radial-gradient(ellipse at 100% 0%, rgb(219 234 224 / 65%), transparent 35rem), var(--paper);
-            font: 15px/1.5 "DM Sans", "Trebuchet MS", sans-serif;
+            background:
+                radial-gradient(ellipse at 100% 0%, rgb(219 234 224 / 65%), transparent 35rem),
+                var(--paper);
+            font: 15px/1.5 "DM Sans", sans-serif;
         }
 
         button,
@@ -54,11 +57,11 @@
         }
 
         .masthead {
-            min-height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 18px;
+            min-height: 64px;
             padding: 0 max(24px, calc((100vw - 1180px) / 2));
             color: #f6faf7;
             background: #172a25;
@@ -72,9 +75,9 @@
         }
 
         .brand-mark {
+            display: grid;
             width: 32px;
             height: 32px;
-            display: grid;
             place-items: center;
             border: 1px solid #95c3ad;
             border-radius: 50%;
@@ -103,8 +106,8 @@
 
         .page-heading {
             display: flex;
-            justify-content: space-between;
             align-items: end;
+            justify-content: space-between;
             gap: 24px;
             margin-bottom: 26px;
         }
@@ -119,41 +122,40 @@
         }
 
         h1,
-        h2,
         p {
             margin-top: 0;
         }
 
         h1 {
             margin-bottom: 7px;
-            font: 600 34px/1.15 "Space Grotesk", "DM Sans", sans-serif;
+            font: 600 34px/1.15 "Space Grotesk", sans-serif;
         }
 
         .intro {
             max-width: 610px;
-            margin: 0;
+            margin-bottom: 0;
             color: var(--muted);
         }
 
-        .refresh-button {
-            min-height: 42px;
-            padding: 0 15px;
+        .refresh-button,
+        .pagination button {
             border: 1px solid #bfcac4;
             border-radius: 6px;
             color: var(--ink);
             background: var(--surface);
             font-weight: 600;
+        }
+
+        .refresh-button {
+            min-height: 42px;
+            padding: 0 15px;
             white-space: nowrap;
         }
 
-        .refresh-button:hover:not(:disabled) {
-            border-color: var(--green);
-            color: var(--green);
-        }
-
-        .refresh-button:disabled {
-            cursor: wait;
-            opacity: .6;
+        .refresh-button:disabled,
+        .pagination button:disabled {
+            cursor: default;
+            opacity: .55;
         }
 
         .summary {
@@ -206,10 +208,6 @@
             background: var(--surface);
         }
 
-        .field {
-            min-width: 0;
-        }
-
         .field label {
             display: block;
             margin-bottom: 6px;
@@ -225,15 +223,8 @@
             padding: 0 11px;
             border: 1px solid #cbd5cf;
             border-radius: 5px;
-            outline: none;
             color: var(--ink);
-            background-color: #fff;
-        }
-
-        .field input:focus,
-        .field select:focus {
-            border-color: var(--green);
-            box-shadow: 0 0 0 3px rgb(22 106 85 / 12%);
+            background: #fff;
         }
 
         .clear-button {
@@ -255,23 +246,24 @@
             box-shadow: var(--shadow);
         }
 
-        .table-toolbar {
+        .table-toolbar,
+        .table-footer {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             gap: 16px;
             padding: 14px 18px;
+        }
+
+        .table-toolbar {
             border-bottom: 1px solid var(--line);
         }
 
-        .result-count {
+        .result-count,
+        .page-status {
             margin: 0;
             color: var(--muted);
             font-size: 13px;
-        }
-
-        .result-count strong {
-            color: var(--ink);
         }
 
         .page-size {
@@ -280,16 +272,12 @@
             gap: 8px;
             color: var(--muted);
             font-size: 12px;
-            white-space: nowrap;
         }
 
         .page-size select {
             height: 32px;
-            padding: 0 8px;
             border: 1px solid var(--line);
             border-radius: 4px;
-            color: var(--ink);
-            background: white;
         }
 
         .table-scroll {
@@ -320,10 +308,6 @@
             vertical-align: top;
         }
 
-        tbody tr:hover {
-            background: #fbfcfb;
-        }
-
         td:first-child {
             min-width: 260px;
             color: var(--ink);
@@ -338,12 +322,10 @@
         .title-link:hover {
             color: var(--green);
             text-decoration: underline;
-            text-underline-offset: 3px;
         }
 
         .short-name {
             overflow-wrap: anywhere;
-            font: 12px/1.45 "DM Sans", sans-serif;
         }
 
         .platform-list {
@@ -374,17 +356,7 @@
         }
 
         .table-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            padding: 12px 18px;
             border-top: 1px solid var(--line);
-        }
-
-        .page-status {
-            color: var(--muted);
-            font-size: 12px;
         }
 
         .pagination {
@@ -396,20 +368,6 @@
             min-width: 36px;
             height: 34px;
             padding: 0 9px;
-            border: 1px solid var(--line);
-            border-radius: 4px;
-            color: var(--ink);
-            background: #fff;
-        }
-
-        .pagination button:hover:not(:disabled) {
-            border-color: var(--green);
-            color: var(--green);
-        }
-
-        .pagination button:disabled {
-            cursor: default;
-            opacity: .42;
         }
 
         .pipeline {
@@ -423,45 +381,26 @@
             background: #eaf0eb;
         }
 
-        .pipeline-copy {
-            min-width: 0;
-        }
-
-        .pipeline-label {
+        .pipeline-label,
+        .pipeline-detail {
             display: block;
             color: #52625b;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: .6px;
-            text-transform: uppercase;
+            font-size: 12px;
         }
 
         .pipeline-time {
             display: block;
-            margin-top: 3px;
-            font-weight: 600;
-        }
-
-        .pipeline-detail {
-            display: block;
-            color: var(--muted);
-            font-size: 12px;
+            font: 600 16px "Space Grotesk", sans-serif;
         }
 
         .pipeline-link {
-            flex: 0 0 auto;
             color: var(--green);
-            font-size: 12px;
             font-weight: 700;
-            text-decoration: none;
-        }
-
-        .pipeline-link:hover {
-            text-decoration: underline;
+            white-space: nowrap;
         }
 
         .notice {
-            margin: 12px 0 0;
+            margin: 18px 0 0;
             color: var(--muted);
             font-size: 12px;
         }
@@ -470,193 +409,41 @@
             position: absolute;
             width: 1px;
             height: 1px;
-            padding: 0;
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
-            clip-path: inset(50%);
         }
 
         @media (max-width: 760px) {
             main {
-                width: min(100% - 32px, 620px);
-                padding-top: 32px;
+                width: min(100% - 28px, 1180px);
+                padding-top: 28px;
             }
 
-            .masthead {
-                padding: 0 16px;
-            }
-
-            .page-heading {
-                align-items: start;
+            .page-heading,
+            .pipeline {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .summary {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
 
-            .summary-item:last-child {
-                grid-column: 1 / -1;
+            .summary-item+.summary-item {
                 border-top: 1px solid var(--line);
                 border-left: 0;
             }
 
             .filters {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .field:first-child {
-                grid-column: 1 / -1;
-            }
-
-            .clear-button {
-                width: 100%;
-            }
-
-            .table-scroll {
-                overflow: visible;
-            }
-
-            table,
-            tbody {
-                display: block;
-            }
-
-            thead {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                clip-path: inset(50%);
-            }
-
-            tbody {
-                padding: 0 14px;
-            }
-
-            tbody tr {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0 14px;
-                padding: 7px 0 10px;
-                border-top: 1px solid #e9eeeb;
-            }
-
-            tbody td {
-                display: block;
-                min-width: 0;
-                padding: 8px 2px;
-                border: 0;
-                overflow-wrap: anywhere;
-            }
-
-            tbody td:first-child {
-                grid-column: 1 / -1;
-                min-width: 0;
-            }
-
-            tbody td::before {
-                display: block;
-                margin-bottom: 3px;
-                color: #7b8781;
-                content: attr(data-label);
-                font-size: 9px;
-                font-weight: 700;
-                letter-spacing: .6px;
-                text-transform: uppercase;
-            }
-
-            .empty-state {
-                display: block;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .source-label {
-                max-width: 120px;
-                font-size: 10px;
-                text-align: right;
-            }
-
-            main {
-                width: calc(100% - 28px);
-                padding-top: 27px;
-            }
-
-            .page-heading {
-                display: block;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            .refresh-button {
-                margin-top: 16px;
-            }
-
-            .summary-item {
-                padding: 13px 14px;
-            }
-
-            .summary-value {
-                font-size: 20px;
-            }
-
-            .filters {
-                gap: 10px;
-                padding: 13px;
-            }
-
-            .field label {
-                font-size: 11px;
-            }
-
-            .field input,
-            .field select {
-                font-size: 13px;
+                grid-template-columns: 1fr;
             }
 
             .table-toolbar,
             .table-footer {
+                flex-wrap: wrap;
                 align-items: flex-start;
                 padding: 12px;
-            }
-
-            .table-toolbar {
-                flex-wrap: wrap;
-            }
-
-            .result-count {
-                font-size: 12px;
-            }
-
-            .pipeline {
-                align-items: flex-start;
-            }
-
-            .pipeline-link {
-                max-width: 94px;
-                text-align: right;
-            }
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-            main {
-                animation: arrive .35s ease-out both;
-            }
-
-            @keyframes arrive {
-                from {
-                    opacity: 0;
-                    transform: translateY(7px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
             }
         }
     </style>
@@ -664,44 +451,86 @@
 
 <body>
     <header class="masthead">
-        <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><span>NASA CMR<small>Earthdata ·
-                    catálogo</small></span></div>
-        <span class="source-label" id="source-status" role="status">Conectando ao catálogo...</span>
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">N</span>
+            <span>NASA CMR<small>Earthdata · catálogo</small></span>
+        </div>
+
+        <span class="source-label" id="source-status" role="status">
+            Conectando ao banco...
+        </span>
     </header>
+
     <main>
         <section class="page-heading" aria-labelledby="page-title">
             <div>
                 <p class="eyebrow">Common Metadata Repository</p>
                 <h1 id="page-title">Catálogo de coleções</h1>
-                <p class="intro">Explore os metadados publicados no NASA Earthdata e encontre coleções por nome, centro
-                    de dados ou plataforma.</p>
+                <p class="intro">
+                    Explore os metadados publicados no NASA Earthdata e encontre coleções
+                    por nome, centro de dados ou plataforma.
+                </p>
             </div>
-            <button class="refresh-button" id="refresh-button" type="button">↻ Atualizar dados</button>
+
+            <button class="refresh-button" id="refresh-button" type="button">
+                ↻ Atualizar dados
+            </button>
         </section>
+
         <section class="summary" aria-label="Resumo do catálogo">
-            <div class="summary-item"><span class="summary-label">Coleções carregadas</span><strong
-                    class="summary-value" id="total-count">—</strong></div>
-            <div class="summary-item"><span class="summary-label">Resultados filtrados</span><strong
-                    class="summary-value" id="filtered-count">—</strong></div>
-            <div class="summary-item"><span class="summary-label">Dados consultados em</span><strong
-                    class="summary-value compact" id="data-updated">Aguardando consulta</strong></div>
+            <div class="summary-item">
+                <span class="summary-label">Coleções carregadas</span>
+                <strong class="summary-value" id="total-count">—</strong>
+            </div>
+
+            <div class="summary-item">
+                <span class="summary-label">Resultados filtrados</span>
+                <strong class="summary-value" id="filtered-count">—</strong>
+            </div>
+
+            <div class="summary-item">
+                <span class="summary-label">Dados consultados em</span>
+                <strong class="summary-value compact" id="data-updated">
+                    Aguardando consulta
+                </strong>
+            </div>
         </section>
+
         <section aria-label="Filtros e resultados de coleções">
             <div class="filters">
-                <div class="field"><label for="search-input">Buscar coleção</label><input id="search-input"
-                        type="search" placeholder="Título, short name ou centro de dados" autocomplete="off"></div>
-                <div class="field"><label for="provider-filter">Data center</label><select id="provider-filter">
+                <div class="field">
+                    <label for="search-input">Buscar coleção</label>
+                    <input id="search-input" type="search" placeholder="Título, short name ou centro de dados"
+                        autocomplete="off">
+                </div>
+
+                <div class="field">
+                    <label for="provider-filter">Data center</label>
+                    <select id="provider-filter">
                         <option value="">Todos os centros</option>
-                    </select></div>
-                <div class="field"><label for="platform-filter">Plataforma</label><select id="platform-filter">
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="platform-filter">Plataforma</label>
+                    <select id="platform-filter">
                         <option value="">Todas as plataformas</option>
-                    </select></div>
-                <button class="clear-button" id="clear-filters" type="button">Limpar filtros</button>
+                    </select>
+                </div>
+
+                <button class="clear-button" id="clear-filters" type="button">
+                    Limpar filtros
+                </button>
             </div>
+
             <div class="table-shell">
                 <div class="table-toolbar">
-                    <p class="result-count" id="result-count" aria-live="polite">Carregando coleções da NASA...</p>
-                    <label class="page-size" for="page-size">Linhas por página
+                    <p class="result-count" id="result-count" aria-live="polite">
+                        Carregando coleções do Supabase...
+                    </p>
+
+                    <label class="page-size" for="page-size">
+                        Linhas por página
                         <select id="page-size">
                             <option value="10">10</option>
                             <option value="20" selected>20</option>
@@ -709,9 +538,13 @@
                         </select>
                     </label>
                 </div>
+
                 <div class="table-scroll">
                     <table>
-                        <caption class="sr-only">Coleções disponíveis no NASA Common Metadata Repository</caption>
+                        <caption class="sr-only">
+                            Coleções disponíveis no NASA Common Metadata Repository
+                        </caption>
+
                         <thead>
                             <tr>
                                 <th scope="col">Título</th>
@@ -721,227 +554,503 @@
                                 <th scope="col">Última atualização</th>
                             </tr>
                         </thead>
+
                         <tbody id="collection-rows">
                             <tr>
-                                <td class="empty-state" colspan="5">Buscando dados ao vivo no NASA CMR...</td>
+                                <td class="empty-state" colspan="5">
+                                    Carregando dados armazenados...
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
                 <div class="table-footer">
                     <span class="page-status" id="page-status">Página 1</span>
+
                     <nav class="pagination" aria-label="Paginação">
-                        <button id="previous-page" type="button" aria-label="Página anterior" disabled>←</button>
-                        <button id="next-page" type="button" aria-label="Próxima página" disabled>→</button>
+                        <button id="previous-page" type="button" aria-label="Página anterior" disabled>
+                            ←
+                        </button>
+
+                        <button id="next-page" type="button" aria-label="Próxima página" disabled>
+                            →
+                        </button>
                     </nav>
                 </div>
             </div>
         </section>
+
         <section class="pipeline" aria-label="Última execução do pipeline">
-            <div class="pipeline-copy"><span class="pipeline-label">Última execução do pipeline</span><strong
-                    class="pipeline-time" id="pipeline-time">Consultando GitHub Actions...</strong><span
-                    class="pipeline-detail" id="pipeline-detail">Workflow de atualização do catálogo NASA CMR</span>
+            <div>
+                <span class="pipeline-label">Última execução do pipeline</span>
+                <strong class="pipeline-time" id="pipeline-time">
+                    Consultando Supabase...
+                </strong>
+                <span class="pipeline-detail" id="pipeline-detail">
+                    Workflow de atualização do catálogo NASA CMR
+                </span>
             </div>
+
             <a class="pipeline-link"
                 href="https://github.com/SN-2026-GRUPO-12-NASA/SN-2026-Aislan-NASA/actions/workflows/update-data.yml"
-                target="_blank" rel="noopener noreferrer">Ver execuções ↗</a>
+                target="_blank" rel="noopener noreferrer">
+                Ver execuções ↗
+            </a>
         </section>
-        <p class="notice" id="data-note">Os dados são consultados diretamente na API pública do NASA CMR. A tabela
-            apresenta até 200 coleções por consulta.</p>
+
+        <p class="notice" id="data-note">
+            Os dados são coletados do NASA CMR pelo pipeline automatizado e armazenados
+            no Supabase antes de serem apresentados neste painel.
+        </p>
     </main>
+
     <script>
-        const CMR_URL = "https://cmr.earthdata.nasa.gov/search/collections.json?page_size=200&page_num=1";
-        const WORKFLOW_URL = "https://api.github.com/repos/SN-2026-GRUPO-12-NASA/SN-2026-Aislan-NASA/actions/workflows/update-data.yml/runs?per_page=1";
+        const SUPABASE_URL = "https://impazlmkzwergverqawm.supabase.co";
+
+        // Cole aqui somente a chave pública sb_publishable_... do Supabase.
+        // Nunca coloque service_role ou secret key no HTML.
+        const SUPABASE_KEY = "SUA_PUBLISHABLE_KEY";
+
         const elements = {
-            sourceStatus: document.getElementById("source-status"), totalCount: document.getElementById("total-count"),
-            filteredCount: document.getElementById("filtered-count"), dataUpdated: document.getElementById("data-updated"),
-            search: document.getElementById("search-input"), provider: document.getElementById("provider-filter"),
-            platform: document.getElementById("platform-filter"), pageSize: document.getElementById("page-size"),
-            rows: document.getElementById("collection-rows"), resultCount: document.getElementById("result-count"),
-            pageStatus: document.getElementById("page-status"), previous: document.getElementById("previous-page"),
-            next: document.getElementById("next-page"), refresh: document.getElementById("refresh-button"),
-            pipelineTime: document.getElementById("pipeline-time"), pipelineDetail: document.getElementById("pipeline-detail")
+            sourceStatus: document.getElementById("source-status"),
+            totalCount: document.getElementById("total-count"),
+            filteredCount: document.getElementById("filtered-count"),
+            dataUpdated: document.getElementById("data-updated"),
+            search: document.getElementById("search-input"),
+            provider: document.getElementById("provider-filter"),
+            platform: document.getElementById("platform-filter"),
+            pageSize: document.getElementById("page-size"),
+            rows: document.getElementById("collection-rows"),
+            resultCount: document.getElementById("result-count"),
+            pageStatus: document.getElementById("page-status"),
+            previous: document.getElementById("previous-page"),
+            next: document.getElementById("next-page"),
+            refresh: document.getElementById("refresh-button"),
+            pipelineTime: document.getElementById("pipeline-time"),
+            pipelineDetail: document.getElementById("pipeline-detail")
         };
+
         let collections = [];
         let currentPage = 1;
 
+        function escapeHtml(value) {
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
         function platformNames(collection) {
-            const platforms = Array.isArray(collection.platforms) ? collection.platforms : [];
-            return platforms.map((platform) => typeof platform === "string"
-                ? platform
-                : platform.short_name || platform.long_name || platform.instrument?.short_name || "").filter(Boolean);
+            const platforms = Array.isArray(collection.platforms)
+                ? collection.platforms
+                : [];
+
+            return platforms
+                .map((platform) => {
+                    if (typeof platform === "string") {
+                        return platform;
+                    }
+
+                    return (
+                        platform.short_name ||
+                        platform.long_name ||
+                        platform.instrument?.short_name ||
+                        ""
+                    );
+                })
+                .filter(Boolean);
         }
 
         function formatDate(value, includeTime = false) {
-            if (!value) return "—";
+            if (!value) {
+                return "—";
+            }
+
             const date = new Date(value);
-            if (Number.isNaN(date.getTime())) return "—";
-            return new Intl.DateTimeFormat("pt-BR", includeTime
-                ? { dateStyle: "short", timeStyle: "short" }
-                : { dateStyle: "short" }).format(date);
+
+            if (Number.isNaN(date.getTime())) {
+                return "—";
+            }
+
+            return new Intl.DateTimeFormat(
+                "pt-BR",
+                includeTime
+                    ? { dateStyle: "short", timeStyle: "short" }
+                    : { dateStyle: "short" }
+            ).format(date);
+        }
+
+        function supabaseHeaders() {
+            return {
+                apikey: SUPABASE_KEY,
+                Authorization: `Bearer ${SUPABASE_KEY}`
+            };
         }
 
         function setSelectOptions(select, values, defaultLabel) {
             const selected = select.value;
+
             select.replaceChildren(new Option(defaultLabel, ""));
-            [...values].sort((a, b) => a.localeCompare(b, "pt-BR", { sensitivity: "base" })).forEach((value) => {
-                select.add(new Option(value, value));
-            });
-            if ([...select.options].some((option) => option.value === selected)) select.value = selected;
+
+            [...values]
+                .sort((a, b) =>
+                    a.localeCompare(b, "pt-BR", { sensitivity: "base" })
+                )
+                .forEach((value) => {
+                    select.add(new Option(value, value));
+                });
+
+            if ([...select.options].some((option) => option.value === selected)) {
+                select.value = selected;
+            }
         }
 
         function populateFilters() {
             const providers = new Set();
             const platforms = new Set();
+
             collections.forEach((collection) => {
-                if (collection.data_center) providers.add(collection.data_center);
-                platformNames(collection).forEach((platform) => platforms.add(platform));
+                if (collection.data_center) {
+                    providers.add(collection.data_center);
+                }
+
+                platformNames(collection).forEach((platform) => {
+                    platforms.add(platform);
+                });
             });
+
             setSelectOptions(elements.provider, providers, "Todos os centros");
             setSelectOptions(elements.platform, platforms, "Todas as plataformas");
         }
 
         function filteredCollections() {
-            const query = elements.search.value.trim().toLocaleLowerCase("pt-BR");
+            const query = elements.search.value
+                .trim()
+                .toLocaleLowerCase("pt-BR");
+
             const provider = elements.provider.value;
             const platform = elements.platform.value;
+
             return collections.filter((collection) => {
                 const names = platformNames(collection);
-                const searchable = [collection.title, collection.short_name, collection.data_center, ...names]
-                    .filter(Boolean).join(" ").toLocaleLowerCase("pt-BR");
-                return (!query || searchable.includes(query))
-                    && (!provider || collection.data_center === provider)
-                    && (!platform || names.includes(platform));
+
+                const searchable = [
+                    collection.title,
+                    collection.short_name,
+                    collection.data_center,
+                    ...names
+                ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLocaleLowerCase("pt-BR");
+
+                return (
+                    (!query || searchable.includes(query)) &&
+                    (!provider || collection.data_center === provider) &&
+                    (!platform || names.includes(platform))
+                );
             });
         }
 
         function addCell(row, label, value, className = "") {
             const cell = document.createElement("td");
+
             cell.dataset.label = label;
-            if (className) cell.className = className;
-            if (value instanceof Node) cell.append(value);
-            else cell.textContent = value || "—";
+
+            if (className) {
+                cell.className = className;
+            }
+
+            if (value instanceof Node) {
+                cell.append(value);
+            } else {
+                cell.textContent = value || "—";
+            }
+
             row.append(cell);
+        }
+
+        function setResultCount(start, count, total) {
+            elements.resultCount.replaceChildren();
+
+            if (!total) {
+                elements.resultCount.textContent =
+                    "Nenhuma coleção corresponde aos filtros";
+                return;
+            }
+
+            const first = document.createElement("strong");
+            const last = document.createElement("strong");
+            const totalElement = document.createElement("strong");
+
+            first.textContent = (start + 1).toLocaleString("pt-BR");
+            last.textContent = Math.min(start + count, total).toLocaleString("pt-BR");
+            totalElement.textContent = total.toLocaleString("pt-BR");
+
+            elements.resultCount.append(
+                first,
+                document.createTextNode("–"),
+                last,
+                document.createTextNode(" de "),
+                totalElement,
+                document.createTextNode(" coleções")
+            );
         }
 
         function render() {
             const matching = filteredCollections();
             const pageSize = Number(elements.pageSize.value);
             const pageCount = Math.max(1, Math.ceil(matching.length / pageSize));
+
             currentPage = Math.min(currentPage, pageCount);
+
             const start = (currentPage - 1) * pageSize;
             const pageItems = matching.slice(start, start + pageSize);
-            elements.totalCount.textContent = collections.length.toLocaleString("pt-BR");
-            elements.filteredCount.textContent = matching.length.toLocaleString("pt-BR");
-            elements.resultCount.innerHTML = matching.length
-                ? `<strong>${(start + 1).toLocaleString("pt-BR")}–${Math.min(start + pageItems.length, matching.length).toLocaleString("pt-BR")}</strong> de <strong>${matching.length.toLocaleString("pt-BR")}</strong> coleções`
-                : "Nenhuma coleção corresponde aos filtros";
-            elements.pageStatus.textContent = `Página ${currentPage} de ${pageCount}`;
+
+            elements.totalCount.textContent =
+                collections.length.toLocaleString("pt-BR");
+
+            elements.filteredCount.textContent =
+                matching.length.toLocaleString("pt-BR");
+
+            setResultCount(start, pageItems.length, matching.length);
+
+            elements.pageStatus.textContent =
+                `Página ${currentPage} de ${pageCount}`;
+
             elements.previous.disabled = currentPage <= 1;
             elements.next.disabled = currentPage >= pageCount;
+
             elements.rows.replaceChildren();
+
             if (!pageItems.length) {
                 const row = document.createElement("tr");
                 const cell = document.createElement("td");
+                const title = document.createElement("strong");
+
                 cell.className = "empty-state";
                 cell.colSpan = 5;
-                const title = document.createElement("strong");
+
                 title.textContent = "Nenhum resultado encontrado";
-                cell.append(title, document.createTextNode("Experimente mudar os termos ou limpar os filtros."));
+
+                cell.append(
+                    title,
+                    document.createTextNode(
+                        "Experimente mudar os termos ou limpar os filtros."
+                    )
+                );
+
                 row.append(cell);
                 elements.rows.append(row);
+
                 return;
             }
+
             pageItems.forEach((collection) => {
                 const row = document.createElement("tr");
                 const title = document.createElement("a");
+
                 title.className = "title-link";
                 title.textContent = collection.title || "Sem título";
-                title.href = collection.id
-                    ? `https://cmr.earthdata.nasa.gov/search/concepts/${encodeURIComponent(collection.id)}`
+
+                title.href = collection.cmr_id
+                    ? `https://cmr.earthdata.nasa.gov/search/concepts/${encodeURIComponent(collection.cmr_id)}`
                     : "https://cmr.earthdata.nasa.gov/search/collections";
+
                 title.target = "_blank";
                 title.rel = "noopener noreferrer";
+
                 addCell(row, "Título", title);
                 addCell(row, "Short name", collection.short_name || "—", "short-name");
                 addCell(row, "Data center", collection.data_center || "—");
-                const platformTags = document.createElement("div");
-                platformTags.className = "platform-list";
-                platformNames(collection).slice(0, 4).forEach((name) => {
-                    const tag = document.createElement("span");
-                    tag.className = "platform-tag";
-                    tag.textContent = name;
-                    platformTags.append(tag);
-                });
-                addCell(row, "Plataforma", platformTags.childElementCount ? platformTags : "—");
-                addCell(row, "Última atualização", formatDate(collection.updated));
+
+                const tags = document.createElement("div");
+                tags.className = "platform-list";
+
+                platformNames(collection)
+                    .slice(0, 4)
+                    .forEach((name) => {
+                        const tag = document.createElement("span");
+
+                        tag.className = "platform-tag";
+                        tag.textContent = name;
+
+                        tags.append(tag);
+                    });
+
+                addCell(
+                    row,
+                    "Plataforma",
+                    tags.childElementCount ? tags : "—"
+                );
+
+                addCell(
+                    row,
+                    "Última atualização",
+                    formatDate(collection.updated_at)
+                );
+
                 elements.rows.append(row);
             });
         }
 
-        async function loadPipeline() {
-            try {
-                const response = await fetch(WORKFLOW_URL, { headers: { Accept: "application/vnd.github+json" } });
-                if (!response.ok) throw new Error(`GitHub Actions respondeu ${response.status}`);
-                const data = await response.json();
-                const run = data.workflow_runs?.[0];
-                if (!run) throw new Error("Nenhuma execução encontrada");
-                elements.pipelineTime.textContent = formatDate(run.run_started_at || run.created_at, true);
-                const status = run.status === "completed"
-                    ? (run.conclusion === "success" ? "Concluído com sucesso" : `Concluído: ${run.conclusion || "sem resultado"}`)
-                    : `Em andamento: ${run.status}`;
-                elements.pipelineDetail.textContent = `${status} · ${run.display_title || "Atualização NASA CMR"}`;
-            } catch (error) {
-                elements.pipelineTime.textContent = "Não foi possível consultar agora";
-                elements.pipelineDetail.textContent = "Acompanhe as execuções no GitHub Actions.";
-                console.warn("Falha ao consultar a última execução do pipeline:", error);
-            }
+        function showLoadingRows(message) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.className = "empty-state";
+            cell.colSpan = 5;
+            cell.textContent = message;
+
+            row.append(cell);
+            elements.rows.replaceChildren(row);
         }
 
         async function loadCollections() {
             elements.refresh.disabled = true;
             elements.refresh.textContent = "Carregando...";
-            elements.sourceStatus.textContent = "Consultando NASA CMR...";
-            elements.rows.innerHTML = '<tr><td class="empty-state" colspan="5">Buscando dados ao vivo no NASA CMR...</td></tr>';
+            elements.sourceStatus.textContent = "Consultando Supabase...";
+
+            showLoadingRows("Carregando dados armazenados no Supabase...");
+
             try {
-                const response = await fetch(CMR_URL, { headers: { Accept: "application/json" } });
-                if (!response.ok) throw new Error(`NASA CMR respondeu ${response.status}`);
-                const data = await response.json();
-                collections = data.feed?.entry || [];
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/colecoes?select=*&order=title.asc`,
+                    {
+                        headers: supabaseHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Supabase respondeu ${response.status}`);
+                }
+
+                collections = await response.json();
+
                 currentPage = 1;
+
                 populateFilters();
                 render();
-                elements.dataUpdated.textContent = new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" }).format(new Date());
-                elements.sourceStatus.textContent = "NASA CMR · ao vivo";
+
+                elements.dataUpdated.textContent = formatDate(new Date(), true);
+
+                elements.sourceStatus.textContent =
+                    "Supabase · dados NASA CMR";
             } catch (error) {
                 collections = [];
+
                 elements.totalCount.textContent = "—";
                 elements.filteredCount.textContent = "—";
-                elements.resultCount.textContent = "Não foi possível carregar os dados do catálogo.";
-                elements.rows.innerHTML = '<tr><td class="empty-state" colspan="5"><strong>Falha ao consultar o NASA CMR</strong>Verifique sua conexão e tente atualizar novamente.</td></tr>';
-                elements.sourceStatus.textContent = "Catálogo indisponível";
-                console.error("Falha ao consultar o NASA CMR:", error);
+                elements.resultCount.textContent =
+                    "Não foi possível carregar os dados.";
+
+                showLoadingRows(
+                    "Falha ao consultar o Supabase. Verifique a conexão e tente novamente."
+                );
+
+                elements.sourceStatus.textContent = "Banco indisponível";
+
+                console.error("Falha ao consultar Supabase:", error);
             } finally {
                 elements.refresh.disabled = false;
                 elements.refresh.textContent = "↻ Atualizar dados";
             }
         }
 
-        elements.search.addEventListener("input", () => { currentPage = 1; render(); });
-        elements.provider.addEventListener("change", () => { currentPage = 1; render(); });
-        elements.platform.addEventListener("change", () => { currentPage = 1; render(); });
-        elements.pageSize.addEventListener("change", () => { currentPage = 1; render(); });
-        elements.previous.addEventListener("click", () => { currentPage -= 1; render(); });
-        elements.next.addEventListener("click", () => { currentPage += 1; render(); });
-        document.getElementById("clear-filters").addEventListener("click", () => {
-            elements.search.value = "";
-            elements.provider.value = "";
-            elements.platform.value = "";
+        async function loadPipeline() {
+            try {
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/execucoes?select=*&order=executado_em.desc&limit=1`,
+                    {
+                        headers: supabaseHeaders()
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Supabase respondeu ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (!data.length) {
+                    throw new Error("Nenhuma execução encontrada");
+                }
+
+                const execucao = data[0];
+
+                elements.pipelineTime.textContent = formatDate(
+                    execucao.executado_em,
+                    true
+                );
+
+                elements.pipelineDetail.textContent =
+                    `${execucao.status} · ` +
+                    `${execucao.registros_processados} registros · ` +
+                    `${execucao.lotes} lotes · ` +
+                    `${execucao.erros} erros`;
+            } catch (error) {
+                elements.pipelineTime.textContent =
+                    "Não foi possível consultar agora";
+
+                elements.pipelineDetail.textContent =
+                    "Não foi possível consultar a tabela de execuções.";
+
+                console.warn("Falha ao consultar pipeline:", error);
+            }
+        }
+
+        elements.search.addEventListener("input", () => {
             currentPage = 1;
             render();
-            elements.search.focus();
         });
+
+        elements.provider.addEventListener("change", () => {
+            currentPage = 1;
+            render();
+        });
+
+        elements.platform.addEventListener("change", () => {
+            currentPage = 1;
+            render();
+        });
+
+        elements.pageSize.addEventListener("change", () => {
+            currentPage = 1;
+            render();
+        });
+
+        elements.previous.addEventListener("click", () => {
+            currentPage -= 1;
+            render();
+        });
+
+        elements.next.addEventListener("click", () => {
+            currentPage += 1;
+            render();
+        });
+
+        document
+            .getElementById("clear-filters")
+            .addEventListener("click", () => {
+                elements.search.value = "";
+                elements.provider.value = "";
+                elements.platform.value = "";
+
+                currentPage = 1;
+
+                render();
+                elements.search.focus();
+            });
+
         elements.refresh.addEventListener("click", loadCollections);
+
         loadCollections();
         loadPipeline();
     </script>
