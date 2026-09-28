@@ -91,17 +91,13 @@ def deduplicar(registros):
             registros_unicos[cmr_id] = registro
 
     return list(registros_unicos.values())
-
-
-def salvar_colecoes(registros):
+def salvar_colecoes(registros, tamanho_lote=100):
     print("Normalizando registros...")
 
-    dados_normalizados = []
-
-    for registro in registros:
-        dados_normalizados.append(
-            normalizar(registro)
-        )
+    dados_normalizados = [
+        normalizar(registro)
+        for registro in registros
+    ]
 
     dados_normalizados = deduplicar(
         dados_normalizados
@@ -112,16 +108,54 @@ def salvar_colecoes(registros):
         "após deduplicação."
     )
 
-    print("Enviando dados ao Supabase...")
+    total_processados = 0
+    lotes_processados = 0
+    erros = 0
 
-    supabase.table("colecoes").upsert(
-        dados_normalizados,
-        on_conflict="cmr_id"
-    ).execute()
+    for i in range(
+        0,
+        len(dados_normalizados),
+        tamanho_lote
+    ):
+        lote = dados_normalizados[
+            i:i + tamanho_lote
+        ]
 
-    print("Dados enviados ao Supabase.")
+        numero_lote = lotes_processados + 1
 
-    return len(dados_normalizados)
+        print(
+            f"Enviando lote {numero_lote} "
+            f"com {len(lote)} registros..."
+        )
+
+        try:
+            supabase.table("colecoes").upsert(
+                lote,
+                on_conflict="cmr_id"
+            ).execute()
+
+            total_processados += len(lote)
+
+            print(
+                f"Lote {numero_lote} enviado "
+                "com sucesso."
+            )
+
+        except Exception as erro_lote:
+            erros += 1
+
+            print(
+                f"Erro no lote {numero_lote}:"
+            )
+            print(erro_lote)
+
+        lotes_processados += 1
+
+    return (
+        total_processados,
+        lotes_processados,
+        erros
+    )
 
 
 def registrar_execucao(
@@ -146,26 +180,42 @@ def main():
     try:
         registros = buscar_cmr()
 
-        quantidade = salvar_colecoes(
-            registros
+        processados, lotes, erros = salvar_colecoes(
+            registros,
+            tamanho_lote=100
         )
 
+        if erros == 0:
+            status = "concluido"
+
+        elif processados > 0:
+            status = "erro_parcial"
+
+        else:
+            status = "erro_critico"
+
         registrar_execucao(
-            registros_processados=quantidade,
-            lotes=1,
-            erros=0,
-            status="concluido"
+            registros_processados=processados,
+            lotes=lotes,
+            erros=erros,
+            status=status
         )
 
         print()
-        print("Pipeline concluído com sucesso.")
-        print(
-            f"{quantidade} registros processados."
-        )
+        print("==============================")
+        print("Resumo da execução")
+        print("==============================")
+        print(f"Registros: {processados}")
+        print(f"Lotes: {lotes}")
+        print(f"Erros: {erros}")
+        print(f"Status: {status}")
+
+        if status != "concluido":
+            sys.exit(1)
 
     except Exception as erro:
         print()
-        print("Erro durante o pipeline:")
+        print("Erro crítico durante o pipeline:")
         print(erro)
 
         try:
