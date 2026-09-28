@@ -35,26 +35,32 @@ supabase = create_client(
 def buscar_cmr():
     print("Buscando dados da NASA CMR...")
 
-    params = {
-        "page_size": 10
-    }
+    todos_registros = []
 
-    resposta = requests.get(
-        CMR_URL,
-        params=params,
-        timeout=30
-    )
+    for pagina in range(1, 3):
+        params = {
+            "page_size": 100,
+            "page_num": pagina
+        }
 
-    resposta.raise_for_status()
+        resposta = requests.get(
+            CMR_URL,
+            params=params,
+            timeout=30
+        )
 
-    dados = resposta.json()
+        resposta.raise_for_status()
 
-    registros = dados["feed"]["entry"]
+        dados = resposta.json()
+        registros = dados["feed"]["entry"]
 
-    print(f"{len(registros)} registros recebidos da NASA.")
+        print(f"Página {pagina}: {len(registros)} registros.")
 
-    return registros
+        todos_registros.extend(registros)
 
+    print(f"Total recebido: {len(todos_registros)} registros.")
+
+    return todos_registros
 
 def normalizar(registro):
     return {
