@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from supabase import create_client
 
 
-# Carrega as variáveis do arquivo .env
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -14,18 +13,20 @@ SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 
 CMR_URL = "https://cmr.earthdata.nasa.gov/search/collections.json"
 
+PAGE_SIZE = 100
+MAX_REGISTROS = 2000
+TAMANHO_LOTE = 100
 
-# Verifica se as variáveis do Supabase existem
+
 if not SUPABASE_URL:
-    print("Erro: SUPABASE_URL não encontrada no arquivo .env")
+    print("Erro: SUPABASE_URL não encontrada.")
     sys.exit(1)
 
 if not SUPABASE_SERVICE_KEY:
-    print("Erro: SUPABASE_SERVICE_KEY não encontrada no arquivo .env")
+    print("Erro: SUPABASE_SERVICE_KEY não encontrada.")
     sys.exit(1)
 
 
-# Cria conexão com o Supabase
 supabase = create_client(
     SUPABASE_URL,
     SUPABASE_SERVICE_KEY
@@ -33,15 +34,23 @@ supabase = create_client(
 
 
 def buscar_cmr():
-    print("Buscando dados da NASA CMR...")
+    print("===================================")
+    print("Buscando dados da NASA CMR")
+    print("===================================")
 
     todos_registros = []
 
-    for pagina in range(1, 3):
+    max_paginas = MAX_REGISTROS // PAGE_SIZE
+
+    for pagina in range(1, max_paginas + 1):
         params = {
-            "page_size": 100,
+            "page_size": PAGE_SIZE,
             "page_num": pagina
         }
+
+        print(
+            f"Buscando página {pagina}/{max_paginas}..."
+        )
 
         resposta = requests.get(
             CMR_URL,
@@ -52,15 +61,35 @@ def buscar_cmr():
         resposta.raise_for_status()
 
         dados = resposta.json()
-        registros = dados["feed"]["entry"]
+        registros = dados["feed"].get("entry", [])
 
-        print(f"Página {pagina}: {len(registros)} registros.")
+        print(
+            f"Página {pagina}: "
+            f"{len(registros)} registros recebidos."
+        )
+
+        if not registros:
+            print("Nenhum registro adicional encontrado.")
+            break
 
         todos_registros.extend(registros)
 
-    print(f"Total recebido: {len(todos_registros)} registros.")
+        if len(todos_registros) >= MAX_REGISTROS:
+            todos_registros = todos_registros[:MAX_REGISTROS]
+            break
+
+        if len(registros) < PAGE_SIZE:
+            print("Última página encontrada.")
+            break
+
+    print()
+    print(
+        f"Total recebido da NASA: "
+        f"{len(todos_registros)} registros."
+    )
 
     return todos_registros
+
 
 def normalizar(registro):
     return {
@@ -91,7 +120,10 @@ def deduplicar(registros):
             registros_unicos[cmr_id] = registro
 
     return list(registros_unicos.values())
-def salvar_colecoes(registros, tamanho_lote=100):
+
+
+def salvar_colecoes(registros):
+    print()
     print("Normalizando registros...")
 
     dados_normalizados = [
@@ -112,13 +144,13 @@ def salvar_colecoes(registros, tamanho_lote=100):
     lotes_processados = 0
     erros = 0
 
-    for i in range(
+    for inicio in range(
         0,
         len(dados_normalizados),
-        tamanho_lote
+        TAMANHO_LOTE
     ):
         lote = dados_normalizados[
-            i:i + tamanho_lote
+            inicio:inicio + TAMANHO_LOTE
         ]
 
         numero_lote = lotes_processados + 1
@@ -181,8 +213,7 @@ def main():
         registros = buscar_cmr()
 
         processados, lotes, erros = salvar_colecoes(
-            registros,
-            tamanho_lote=100
+            registros
         )
 
         if erros == 0:
@@ -202,11 +233,11 @@ def main():
         )
 
         print()
-        print("==============================")
+        print("===================================")
         print("Resumo da execução")
-        print("==============================")
-        print(f"Registros: {processados}")
-        print(f"Lotes: {lotes}")
+        print("===================================")
+        print(f"Registros processados: {processados}")
+        print(f"Lotes processados: {lotes}")
         print(f"Erros: {erros}")
         print(f"Status: {status}")
 
