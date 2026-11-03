@@ -1,6 +1,6 @@
 # Reflexão crítica sobre uso de IA
 
-O apoio da inteligência artificial acelerou a compreensão da arquitetura do projeto, especialmente a integração entre API REST, Python, banco de dados e GitHub Actions. A ferramenta ajudou a estruturar funções, interpretar mensagens de erro e explicar políticas RLS.
+O apoio da inteligência artificial acelerou a compreensão da arquitetura do projeto, especialmente a integração entre API REST, e banco de dados. A ferramenta ajudou a estruturar funções, interpretar mensagens de erro e explicar políticas RLS.
 
 A maior limitação observada foi a diferença entre **um código que parece correto** e **um código realmente verificado**. A implementação inicial buscava repetidamente as primeiras páginas da NASA. Mesmo após a criação da tabela `controle_pipeline`, o coletor publicado não utilizava seu checkpoint. O problema só ficou claro ao comparar o código com o estado real do banco.
 
