@@ -15,6 +15,18 @@
 
 **Planilha da turma:** [registrar onde links foram enviados, incluindo evidência]
 
-**Observação:** Não inserir prints de exemplo como se fossem evidências de execução.
-
 <img width="1919" height="941" alt="image" src="https://github.com/user-attachments/assets/06a5ab78-22d1-492b-a20c-1e1d2e689729" />
+
+**API REST JSON — Supabase**
+
+**Endpoint:** https://impazlmkzwergverqawm.supabase.co/rest/v1/colecoes?select=cmr_id,title&limit=5
+
+A API REST do Supabase permite consultar os registros científicos coletados da NASA CMR e armazenados no banco PostgreSQL.
+
+O endpoint utiliza o método HTTP `GET` e retorna os dados em formato JSON, incluindo o identificador único (`cmr_id`) e o título (`title`) de cada coleção.
+
+Para realizar a requisição, é necessário informar a chave pública do projeto no cabeçalho HTTP `apikey`. O acesso de leitura é autorizado pelas políticas RLS configuradas no Supabase.
+
+O parâmetro `limit=5` restringe a resposta a cinco registros, facilitando a verificação do funcionamento da API.
+
+Essa integração é utilizada pelo painel publicado no GitHub Pages, que consulta os dados armazenados no Supabase sem acessar diretamente a API da NASA.
