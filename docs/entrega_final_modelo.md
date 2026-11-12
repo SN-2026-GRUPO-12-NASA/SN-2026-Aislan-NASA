@@ -33,3 +33,6 @@ Essa integração é utilizada pelo painel publicado no GitHub Pages, que consul
 
 <img width="544" height="794" alt="image" src="https://github.com/user-attachments/assets/903d66a4-6b88-4dbf-a0fa-61e0b66fdd1a" />
 <img width="552" height="793" alt="image" src="https://github.com/user-attachments/assets/9b74ceb1-e113-4c92-9ffc-ed53bf0154a0" />
+
+<img width="1724" height="66" alt="image" src="https://github.com/user-attachments/assets/a7af15c7-22a7-489d-b285-d03e1d8b8a06" />
+
