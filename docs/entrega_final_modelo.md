@@ -4,8 +4,6 @@
 
 **Página GitHub Pages:** https://sn-2026-grupo-12-nasa.github.io/SN-2026-Aislan-NASA/
 
-**API REST JSON:** 
-
 **GitHub Actions:**
 <img width="1919" height="949" alt="image" src="https://github.com/user-attachments/assets/3762300f-4fd8-4d45-98d9-cd910732f968" />
 
