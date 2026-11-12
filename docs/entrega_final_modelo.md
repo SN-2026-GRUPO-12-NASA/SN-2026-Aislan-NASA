@@ -30,3 +30,6 @@ Para realizar a requisição, é necessário informar a chave pública do projet
 O parâmetro `limit=5` restringe a resposta a cinco registros, facilitando a verificação do funcionamento da API.
 
 Essa integração é utilizada pelo painel publicado no GitHub Pages, que consulta os dados armazenados no Supabase sem acessar diretamente a API da NASA.
+
+<img width="544" height="794" alt="image" src="https://github.com/user-attachments/assets/903d66a4-6b88-4dbf-a0fa-61e0b66fdd1a" />
+<img width="552" height="793" alt="image" src="https://github.com/user-attachments/assets/9b74ceb1-e113-4c92-9ffc-ed53bf0154a0" />
