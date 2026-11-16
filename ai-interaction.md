@@ -9,7 +9,7 @@
 | **API NASA escolhida** | Common Metadata Repository (CMR) — NASA Earthdata |
 | **IA utilizada** | ChatGPT — OpenAI |
 | **Data de início** | 28-09-2026 |
-| **Data de conclusão** | Em andamento — entrega prevista para 13-11-2026 |
+| **Data de conclusão** | 10-11-2026 |
 
 ---
 
