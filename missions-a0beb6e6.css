@@ -1,0 +1,402 @@
+/* Extensão do catálogo: missões e globo */
+.mission-section {
+  margin-top: 76px;
+  padding-top: 50px;
+  border-top: 1px solid var(--line);
+}
+.mission-heading {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+.mission-heading h2 {
+  margin: 0 0 12px;
+  color: #173d50;
+  font: 600 clamp(29px, 3.5vw, 43px)/1.12 "Space Grotesk", sans-serif;
+  letter-spacing: -.035em;
+}
+.mission-heading > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+.mission-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 42px;
+}
+.mission-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  padding: 22px;
+  border: 1px solid #d4e2e4;
+  border-radius: 12px;
+  background: #fffdfa;
+  box-shadow: 0 7px 22px rgb(29 68 80 / 4%);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.mission-card:hover,
+.mission-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 26px rgb(29 68 80 / 9%);
+}
+.mission-card.is-active {
+  border-color: #36849b;
+  box-shadow: 0 0 0 2px rgb(54 132 155 / 13%);
+}
+.mission-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.mission-number {
+  color: #2d7891;
+  font: 600 14px "Space Grotesk", sans-serif;
+}
+.mission-tag {
+  padding: 5px 9px;
+  border-radius: 99px;
+  color: #326b70;
+  background: #e7f0ef;
+  font-size: 11px;
+  font-weight: 700;
+}
+.mission-card h3 {
+  margin: 0 0 9px;
+  color: #173d50;
+  font: 600 24px/1.1 "Space Grotesk", sans-serif;
+}
+.mission-card > p {
+  flex: 1;
+  margin: 0 0 14px;
+  color: #516a73;
+  font-size: 13px;
+}
+.mission-example {
+  display: block;
+  margin-bottom: 15px;
+  color: #586e73;
+  font-size: 12px;
+}
+.mission-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.mission-focus {
+  padding: 0;
+  border: 0;
+  color: #196983;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+}
+.mission-focus:hover,
+.mission-focus:focus-visible,
+.mission-card-actions a:hover {
+  text-decoration: underline;
+}
+.mission-card-actions a {
+  color: #5c747b;
+  font-size: 12px;
+  text-decoration: none;
+}
+.mission-focus:focus-visible,
+.mission-card-actions a:focus-visible,
+.globe-detail a:focus-visible {
+  outline: 2px solid #1d7895;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.globe-section {
+  position: relative;
+  left: 50%;
+  width: min(1500px, calc(100vw - 48px));
+  transform: translateX(-50%);
+  padding: 26px;
+  border: 1px solid #d4e2e4;
+  border-radius: 14px;
+  background: #fffdfa;
+  box-shadow: var(--shadow);
+}
+.globe-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.globe-header h3 {
+  margin: 0;
+  color: #173d50;
+  font: 600 27px/1.15 "Space Grotesk", sans-serif;
+}
+.globe-badge {
+  padding: 7px 11px;
+  border: 1px solid #c8dedf;
+  border-radius: 99px;
+  color: #236b7e;
+  background: #edf5f4;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.globe-layout {
+  width: 100%;
+}
+.globe-panel {
+  position: relative;
+  overflow: hidden;
+  height: 750px;
+  border: 1px solid #cbdfe2;
+  border-radius: 12px;
+  background: #deebed;
+}
+.globe-stage {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, #f2f7f3 0%, #dcebef 60%, #bfdce3 100%);
+}
+.globe-fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(610px, 78%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-image: url("https://unpkg.com/three-globe@2.27.4/example/img/earth-blue-marble.jpg"), radial-gradient(circle at 35% 30%, #5da4b7, #145b7e 72%, #123f59);
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset -45px -24px 70px rgb(10 49 68 / 55%), 0 0 0 11px rgb(255 255 255 / 28%), 0 24px 55px rgb(24 80 99 / 22%);
+  transition: opacity .4s;
+}
+.globe-stage.has-webgl .globe-fallback { opacity: 0; }
+.globe-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.globe-canvas canvas {
+  display: block;
+}
+.globe-status {
+  position: absolute;
+  z-index: 2;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: calc(100% - 40px);
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid rgb(175 205 211 / 60%);
+  border-radius: 99px;
+  color: #244f5d;
+  background: rgb(255 253 250 / 94%);
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+}
+.globe-index,
+.globe-detail {
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  bottom: 20px;
+  width: 244px;
+  padding: 20px;
+  border: 1px solid rgb(198 219 221 / 90%);
+  border-radius: 11px;
+  background: rgb(255 253 250 / 94%);
+  box-shadow: 0 12px 35px rgb(25 74 93 / 12%);
+  backdrop-filter: blur(12px);
+}
+.globe-index {
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.globe-index-intro {
+  margin: 9px 0 17px;
+  color: #55717b;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.globe-index-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 0 0 4px;
+  padding: 9px 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: #234e60;
+  text-align: left;
+  transition: background-color .2s, border-color .2s;
+}
+.globe-index-button:hover,
+.globe-index-button[aria-pressed="true"] {
+  border-color: #bcd8dd;
+  background: #e8f2f2;
+}
+.globe-index-button:focus-visible {
+  outline: 2px solid #1d7895;
+  outline-offset: 2px;
+}
+.globe-index-number {
+  color: #458292;
+  font: 600 12px "Space Grotesk", sans-serif;
+}
+.globe-index-button strong,
+.globe-index-button small {
+  display: block;
+}
+.globe-index-button strong {
+  font-size: 13px;
+}
+.globe-index-button small {
+  margin-top: 2px;
+  color: #65808a;
+  font-size: 11px;
+}
+.globe-key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: auto 0 0;
+  padding-top: 15px;
+  border-top: 1px solid #d7e6e7;
+  color: #5c737a;
+  font-size: 11px;
+}
+.globe-key span {
+  display: block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #176b87;
+  border-radius: 3px;
+  background: rgb(37 119 145 / 27%);
+}
+.globe-detail {
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 268px;
+}
+.detail-eyebrow,
+.detail-label {
+  color: #5a7479;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.detail-eyebrow #globe-counter {
+  float: right;
+  color: #24738a;
+}
+.globe-detail h4 {
+  margin: 15px 0 10px;
+  color: #173d50;
+  font: 600 36px/1.05 "Space Grotesk", sans-serif;
+}
+#globe-mission-description {
+  margin: 0;
+  color: #42616b;
+  font-size: 14px;
+}
+.detail-rule {
+  height: 1px;
+  margin: 22px 0;
+  background: #cbdedc;
+}
+#globe-collection-title {
+  display: block;
+  margin: 8px 0 19px;
+  color: #203c49;
+  font-size: 13px;
+  line-height: 1.5;
+}
+#globe-area {
+  margin: 8px 0 18px;
+  color: #42616b;
+  font-size: 13px;
+}
+#globe-coordinates {
+  margin: 8px 0 22px;
+  color: #234e60;
+  font: 600 13px "Space Grotesk", sans-serif;
+}
+.globe-detail a {
+  align-self: start;
+  margin-top: auto;
+  color: #176984;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.globe-detail a:hover {
+  text-decoration: underline;
+}
+.globe-note {
+  margin: 16px 2px 0;
+  color: #60777e;
+  font-size: 12px;
+}
+.globe-note a {
+  color: #176984;
+}
+@media (max-width: 1220px) {
+  .mission-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .globe-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    height: auto;
+    padding: 0 16px 16px;
+  }
+  .globe-stage {
+    position: relative;
+    grid-column: 1 / -1;
+    height: 570px;
+    margin: 0 -16px;
+  }
+  .globe-index,
+  .globe-detail {
+    position: relative;
+    inset: auto;
+    width: auto;
+    min-height: 345px;
+  }
+  .globe-index-button { padding: 6px 8px; }
+}
+@media (max-width: 600px) {
+  .mission-section { margin-top: 54px; padding-top: 38px; }
+  .mission-cards { grid-template-columns: 1fr; }
+  .mission-card { min-height: 0; }
+  .globe-section { padding: 16px; }
+  .globe-header { align-items: start; flex-direction: column; }
+  .globe-panel { grid-template-columns: 1fr; gap: 12px; padding: 0 12px 12px; }
+  .globe-stage { height: 430px; margin: 0 -12px; }
+  .globe-fallback { width: min(390px, 92%); }
+  .globe-index,
+  .globe-detail { min-height: 0; padding: 18px; }
+  .globe-index { grid-row: 3; }
+  .globe-detail { grid-row: 2; }
+  .globe-status { bottom: 12px; max-width: calc(100% - 20px); white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mission-card { transition: none; }
+  .mission-card:hover { transform: none; }
+}
