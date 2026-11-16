@@ -208,17 +208,14 @@ Foi necessário separar os requisitos já concluídos daqueles que ainda dependi
 - Implementação da lógica de paginação incremental.
 - Orientações para evitar registros duplicados.
 - Auxílio na integração com o banco de dados Supabase.
-- Análise do código e das configurações de segurança.
 - Identificação de problemas na paginação REST do painel.
-- Organização das atividades pendentes e dos documentos de entrega.
+- Organização das atividades pendentes.
 
 ### Principais limitações encontradas
 
 - Algumas soluções inicialmente propostas não funcionaram corretamente na implementação real.
 - O primeiro coletor de 2.000 registros não avançava automaticamente entre execuções.
 - O painel precisava de paginação adicional para consultar todos os registros do banco.
-- Uma atualização do HTML substituiu incorretamente a chave pública do Supabase.
-- Parte dos arquivos gerados precisou ser revisada e reorganizada
 - As respostas da IA nem sempre representavam o estado real do projeto, tornando necessária a validação com logs, arquivos e consultas ao banco.
 
 ### Avaliação geral do uso da IA
