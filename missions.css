@@ -143,62 +143,152 @@
   white-space: nowrap;
 }
 .globe-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 1fr);
-  gap: 20px;
-  align-items: stretch;
+  width: 100%;
 }
 .globe-panel {
   position: relative;
   overflow: hidden;
-  min-height: 480px;
+  height: 690px;
   border: 1px solid #cbdfe2;
-  border-radius: 10px;
-  background: radial-gradient(circle at 48% 45%, #f1f8f6 0%, #dcecef 72%, #c9e3e7 100%);
+  border-radius: 12px;
+  background: #deebed;
+}
+.globe-stage {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, #f2f7f3 0%, #dcebef 60%, #bfdce3 100%);
 }
 .globe-fallback {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(400px, 78%);
+  width: min(610px, 78%);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background-image: url("https://unpkg.com/three-globe@2.27.4/example/img/earth-blue-marble.jpg"), radial-gradient(circle at 35% 30%, #5da4b7, #145b7e 72%, #123f59);
   background-position: center;
   background-size: cover;
-  box-shadow: inset -35px -20px 55px rgb(10 49 68 / 55%), 0 0 0 10px rgb(255 255 255 / 35%), 0 22px 48px rgb(24 80 99 / 25%);
+  box-shadow: inset -45px -24px 70px rgb(10 49 68 / 55%), 0 0 0 11px rgb(255 255 255 / 28%), 0 24px 55px rgb(24 80 99 / 22%);
   transition: opacity .4s;
 }
-.globe-panel.has-webgl .globe-fallback { opacity: 0; }
+.globe-stage.has-webgl .globe-fallback { opacity: 0; }
 .globe-canvas {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 480px;
+  height: 100%;
 }
 .globe-canvas canvas {
   display: block;
 }
 .globe-status {
   position: absolute;
-  right: 14px;
-  bottom: 12px;
-  left: 14px;
+  z-index: 2;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
   width: fit-content;
-  max-width: calc(100% - 28px);
+  max-width: calc(100% - 40px);
   margin: 0;
-  padding: 7px 10px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border: 1px solid rgb(175 205 211 / 60%);
+  border-radius: 99px;
   color: #244f5d;
-  background: rgb(255 253 250 / 90%);
+  background: rgb(255 253 250 / 94%);
   font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
 }
+.globe-index,
 .globe-detail {
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  bottom: 20px;
+  width: 244px;
+  padding: 20px;
+  border: 1px solid rgb(198 219 221 / 90%);
+  border-radius: 11px;
+  background: rgb(255 253 250 / 94%);
+  box-shadow: 0 12px 35px rgb(25 74 93 / 12%);
+  backdrop-filter: blur(12px);
+}
+.globe-index {
+  left: 20px;
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  border-radius: 10px;
-  background: #edf4f2;
+}
+.globe-index-intro {
+  margin: 9px 0 17px;
+  color: #55717b;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.globe-index-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 0 0 4px;
+  padding: 9px 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: #234e60;
+  text-align: left;
+  transition: background-color .2s, border-color .2s;
+}
+.globe-index-button:hover,
+.globe-index-button[aria-pressed="true"] {
+  border-color: #bcd8dd;
+  background: #e8f2f2;
+}
+.globe-index-button:focus-visible {
+  outline: 2px solid #1d7895;
+  outline-offset: 2px;
+}
+.globe-index-number {
+  color: #458292;
+  font: 600 12px "Space Grotesk", sans-serif;
+}
+.globe-index-button strong,
+.globe-index-button small {
+  display: block;
+}
+.globe-index-button strong {
+  font-size: 13px;
+}
+.globe-index-button small {
+  margin-top: 2px;
+  color: #65808a;
+  font-size: 11px;
+}
+.globe-key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: auto 0 0;
+  padding-top: 15px;
+  border-top: 1px solid #d7e6e7;
+  color: #5c737a;
+  font-size: 11px;
+}
+.globe-key span {
+  display: block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #176b87;
+  border-radius: 3px;
+  background: rgb(37 119 145 / 27%);
+}
+.globe-detail {
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 268px;
 }
 .detail-eyebrow,
 .detail-label {
@@ -208,10 +298,14 @@
   letter-spacing: .08em;
   text-transform: uppercase;
 }
+.detail-eyebrow #globe-counter {
+  float: right;
+  color: #24738a;
+}
 .globe-detail h4 {
-  margin: 9px 0 10px;
+  margin: 15px 0 10px;
   color: #173d50;
-  font: 600 34px/1.05 "Space Grotesk", sans-serif;
+  font: 600 36px/1.05 "Space Grotesk", sans-serif;
 }
 #globe-mission-description {
   margin: 0;
@@ -231,9 +325,14 @@
   line-height: 1.5;
 }
 #globe-area {
-  margin: 8px 0 22px;
+  margin: 8px 0 18px;
   color: #42616b;
   font-size: 13px;
+}
+#globe-coordinates {
+  margin: 8px 0 22px;
+  color: #234e60;
+  font: 600 13px "Space Grotesk", sans-serif;
 }
 .globe-detail a {
   align-self: start;
@@ -254,10 +353,29 @@
 .globe-note a {
   color: #176984;
 }
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
   .mission-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .globe-layout { grid-template-columns: 1fr; }
-  .globe-detail { min-height: 260px; }
+  .globe-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    height: auto;
+    padding: 0 16px 16px;
+  }
+  .globe-stage {
+    position: relative;
+    grid-column: 1 / -1;
+    height: 570px;
+    margin: 0 -16px;
+  }
+  .globe-index,
+  .globe-detail {
+    position: relative;
+    inset: auto;
+    width: auto;
+    min-height: 345px;
+  }
+  .globe-index-button { padding: 6px 8px; }
 }
 @media (max-width: 600px) {
   .mission-section { margin-top: 54px; padding-top: 38px; }
@@ -265,8 +383,14 @@
   .mission-card { min-height: 0; }
   .globe-section { padding: 16px; }
   .globe-header { align-items: start; flex-direction: column; }
-  .globe-panel { min-height: 370px; }
-  .globe-canvas { height: 370px; }
+  .globe-panel { grid-template-columns: 1fr; gap: 12px; padding: 0 12px 12px; }
+  .globe-stage { height: 430px; margin: 0 -12px; }
+  .globe-fallback { width: min(390px, 92%); }
+  .globe-index,
+  .globe-detail { min-height: 0; padding: 18px; }
+  .globe-index { grid-row: 3; }
+  .globe-detail { grid-row: 2; }
+  .globe-status { bottom: 12px; max-width: calc(100% - 20px); white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   .mission-card { transition: none; }

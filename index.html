@@ -640,7 +640,7 @@
         <div class="mission-card-top"><span class="mission-number">03</span><span class="mission-tag">Ciclo da água</span></div>
         <h3>Aqua</h3>
         <p>Investiga água, nuvens, gelo e outras peças do ciclo hídrico global.</p>
-        <span class="mission-example">Coleção exemplo: Imagens MODIS sobre o Brasil</span>
+        <span class="mission-example">Coleção exemplo: Imagens MODIS na América do Sul</span>
         <div class="mission-card-actions">
           <button type="button" class="mission-focus" data-focus-mission="aqua" aria-pressed="false">Ver no globo <span aria-hidden="true">↗</span></button>
           <a href="https://science.nasa.gov/mission/aqua/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão Aqua no site da NASA">NASA ↗</a>
@@ -687,23 +687,38 @@
         </div>
         <div class="globe-layout">
           <div class="globe-panel">
-            <div class="globe-fallback" aria-hidden="true"></div>
-            <div id="mission-globe" class="globe-canvas" role="img" aria-label="Globo 3D com as áreas geográficas de seis coleções do NASA CMR"></div>
-            <p id="globe-status" class="globe-status" role="status">Carregando áreas do Supabase…</p>
+            <div class="globe-stage">
+              <div class="globe-fallback" aria-hidden="true"></div>
+              <div id="mission-globe" class="globe-canvas" role="img" aria-label="Globo 3D com a cobertura geográfica da coleção selecionada no NASA CMR"></div>
+              <p id="globe-status" class="globe-status" role="status">Carregando áreas do Supabase…</p>
+            </div>
+            <nav class="globe-index" aria-label="Escolher missão no mapa">
+              <span class="detail-eyebrow">Explorar o mapa</span>
+              <p class="globe-index-intro">Selecione uma coleção para localizar sua cobertura.</p>
+              <button type="button" class="globe-index-button" data-focus-mission="landsat" aria-pressed="true"><span class="globe-index-number">01</span><span><strong>Landsat</strong><small>Sudeste da Ásia</small></span></button>
+              <button type="button" class="globe-index-button" data-focus-mission="terra" aria-pressed="false"><span class="globe-index-number">02</span><span><strong>Terra</strong><small>Alasca</small></span></button>
+              <button type="button" class="globe-index-button" data-focus-mission="aqua" aria-pressed="false"><span class="globe-index-number">03</span><span><strong>Aqua</strong><small>América do Sul</small></span></button>
+              <button type="button" class="globe-index-button" data-focus-mission="gpm" aria-pressed="false"><span class="globe-index-number">04</span><span><strong>GPM</strong><small>Atlântico e Caribe</small></span></button>
+              <button type="button" class="globe-index-button" data-focus-mission="icesat" aria-pressed="false"><span class="globe-index-number">05</span><span><strong>ICESat-2</strong><small>Ártico</small></span></button>
+              <button type="button" class="globe-index-button" data-focus-mission="grace" aria-pressed="false"><span class="globe-index-number">06</span><span><strong>GRACE-FO</strong><small>Estados Unidos</small></span></button>
+              <p class="globe-key"><span aria-hidden="true"></span> Limites informados pela coleção</p>
+            </nav>
+            <aside class="globe-detail" aria-live="polite">
+              <span class="detail-eyebrow">Coleção em foco <span id="globe-counter">01 / 06</span></span>
+              <h4 id="globe-mission-name">Landsat</h4>
+              <p id="globe-mission-description">Décadas de imagens para acompanhar florestas, cidades e mudanças na paisagem.</p>
+              <div class="detail-rule"></div>
+              <span class="detail-label">Coleção em destaque</span>
+              <strong id="globe-collection-title">Consultando o Supabase…</strong>
+              <span class="detail-label">Área registrada</span>
+              <p id="globe-area">Manguezais no sudeste da Ásia</p>
+              <span class="detail-label">Centro da área</span>
+              <p id="globe-coordinates">Consultando coordenadas…</p>
+              <a id="globe-cmr-link" href="https://cmr.earthdata.nasa.gov/search/concepts/C3604193990-ORNL_CLOUD" target="_blank" rel="noopener noreferrer">Abrir coleção no CMR ↗</a>
+            </aside>
           </div>
-          <aside class="globe-detail" aria-live="polite">
-            <span class="detail-eyebrow">Missão selecionada</span>
-            <h4 id="globe-mission-name">Landsat</h4>
-            <p id="globe-mission-description">Décadas de imagens para acompanhar florestas, cidades e mudanças na paisagem.</p>
-            <div class="detail-rule"></div>
-            <span class="detail-label">Coleção em destaque</span>
-            <strong id="globe-collection-title">Consultando o Supabase…</strong>
-            <span class="detail-label">Área registrada</span>
-            <p id="globe-area">Manguezais no sudeste da Ásia</p>
-            <a id="globe-cmr-link" href="https://cmr.earthdata.nasa.gov/search/concepts/C3604193990-ORNL_CLOUD" target="_blank" rel="noopener noreferrer">Abrir coleção no CMR ↗</a>
-          </aside>
         </div>
-        <p class="globe-note">Os contornos mostram a cobertura espacial informada pela <a href="https://cmr.earthdata.nasa.gov/search/site/docs/search/api.html" target="_blank" rel="noopener noreferrer">NASA CMR</a> para uma coleção exemplo de cada missão. Eles não representam órbitas, trajetos ou posições em tempo real. Arraste para girar e use a roda do mouse para aproximar.</p>
+        <p class="globe-note">O contorno mostra a caixa de limites geográficos informada pela <a href="https://cmr.earthdata.nasa.gov/search/site/docs/search/api.html" target="_blank" rel="noopener noreferrer">NASA CMR</a> para a coleção selecionada, não a forma exata da área observada. Não representa órbita, trajeto ou posição em tempo real. Arraste para girar e use a roda do mouse para aproximar.</p>
       </div>
     </section>
 

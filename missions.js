@@ -24,7 +24,7 @@
     "name": "Aqua",
     "description": "Investiga água, nuvens, gelo e outras peças do ciclo hídrico global.",
     "conceptId": "C2227456123-CEOS_EXTRA",
-    "area": "Imagens MODIS sobre o Brasil",
+    "area": "Imagens MODIS na América do Sul",
     "color": "#2a789b"
   },
   {
@@ -62,6 +62,8 @@
   const missionDescription = document.getElementById("globe-mission-description");
   const collectionTitle = document.getElementById("globe-collection-title");
   const areaElement = document.getElementById("globe-area");
+  const coordinatesElement = document.getElementById("globe-coordinates");
+  const counterElement = document.getElementById("globe-counter");
   const cmrLink = document.getElementById("globe-cmr-link");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let selected = "landsat";
@@ -86,14 +88,23 @@
   }
 
   function polygonFor(box) {
+    // Interpola as bordas: quatro vértices isolados viram arcos deformados no globo,
+    // sobretudo nas latitudes altas. A cobertura continua sendo a caixa do CMR.
+    const ring = [];
+    const stepsLng = Math.max(1, Math.ceil((box.east - box.west) / 3));
+    const stepsLat = Math.max(1, Math.ceil((box.north - box.south) / 3));
+    for (let i = 0; i <= stepsLng; i++) ring.push([box.west + (box.east - box.west) * i / stepsLng, box.south]);
+    for (let i = 1; i <= stepsLat; i++) ring.push([box.east, box.south + (box.north - box.south) * i / stepsLat]);
+    for (let i = 1; i <= stepsLng; i++) ring.push([box.east - (box.east - box.west) * i / stepsLng, box.north]);
+    for (let i = 1; i <= stepsLat; i++) ring.push([box.west, box.north - (box.north - box.south) * i / stepsLat]);
     return {
       type: "Polygon",
-      coordinates: [[
-        [box.west, box.south], [box.east, box.south],
-        [box.east, box.north], [box.west, box.north],
-        [box.west, box.south]
-      ]]
+      coordinates: [ring]
     };
+  }
+
+  function coordinate(value, positive, negative) {
+    return Math.abs(value).toFixed(2).replace(".", ",") + "° " + (value < 0 ? negative : positive);
   }
 
   function updateDetails() {
@@ -103,6 +114,10 @@
     missionDescription.textContent = mission.description;
     collectionTitle.textContent = item ? item.title : "Coleção indisponível no momento";
     areaElement.textContent = mission.area;
+    coordinatesElement.textContent = item
+      ? coordinate((item.box.south + item.box.north) / 2, "N", "S") + " · " + coordinate((item.box.west + item.box.east) / 2, "L", "O")
+      : "Coordenadas indisponíveis";
+    counterElement.textContent = String(missions.findIndex((entry) => entry.id === selected) + 1).padStart(2, "0") + " / 06";
     cmrLink.href = "https://cmr.earthdata.nasa.gov/search/concepts/" + encodeURIComponent(mission.conceptId);
     cards.forEach((card) => card.classList.toggle("is-active", card.dataset.missionCard === selected));
     buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.focusMission === selected)));
@@ -110,7 +125,7 @@
 
   function updateLayers() {
     if (!globe) return;
-    const areas = featured.map((entry) => ({
+    const areas = featured.filter((entry) => entry.id === selected).map((entry) => ({
       id: entry.id,
       name: entry.name,
       color: entry.color,
@@ -122,19 +137,19 @@
     globe
       .polygonsData(areas)
       .polygonGeoJsonGeometry("geometry")
-      .polygonCapColor((area) => area.id === selected ? "rgba(27, 106, 139, 0.42)" : "rgba(55, 129, 135, 0.18)")
-      .polygonSideColor(() => "rgba(24, 88, 106, 0.12)")
-      .polygonStrokeColor((area) => area.id === selected ? "#124e68" : "#5d9ba6")
-      .polygonAltitude((area) => area.id === selected ? 0.014 : 0.007)
-      .polygonLabel((area) => area.name + " · cobertura da coleção")
+      .polygonCapColor(() => "rgba(26, 109, 139, 0.28)")
+      .polygonSideColor(() => "rgba(24, 88, 106, 0.06)")
+      .polygonStrokeColor(() => "#0e617e")
+      .polygonAltitude(0.008)
+      .polygonLabel((area) => area.name + " · cobertura informada no CMR")
       .onPolygonClick((area) => selectMission(area.id, false));
     globe
       .pointsData(areas)
       .pointLat("lat")
       .pointLng("lng")
-      .pointColor((area) => area.id === selected ? "#123f59" : area.color)
-      .pointRadius((area) => area.id === selected ? 0.85 : 0.55)
-      .pointAltitude(0.025)
+      .pointColor(() => "#0b4d68")
+      .pointRadius(0.75)
+      .pointAltitude(0.016)
       .pointLabel((area) => area.name + " · " + byId.get(area.id).area)
       .onPointClick((area) => selectMission(area.id, false));
   }
@@ -149,7 +164,7 @@
       globe.pointOfView({
         lat: (item.box.south + item.box.north) / 2,
         lng: (item.box.west + item.box.east) / 2,
-        altitude: 1.7
+        altitude: 1.85
       }, reducedMotion ? 0 : 900);
     }
     if (scrollToMap) {
@@ -179,7 +194,7 @@
       updateLayers();
       if (!globeUnavailable) {
         statusElement.textContent = featured.length
-          ? featured.length + " áreas do CMR · arraste para girar"
+          ? featured.length + " áreas disponíveis · 1 em foco · arraste para girar"
           : "Nenhuma área geográfica disponível agora.";
       }
     } catch (error) {
@@ -231,7 +246,7 @@
           }
         }).observe(globeElement);
       }
-      if (featured.length) statusElement.textContent = featured.length + " áreas do CMR · arraste para girar";
+      if (featured.length) statusElement.textContent = featured.length + " áreas disponíveis · 1 em foco · arraste para girar";
     } catch (error) {
       globeUnavailable = true;
       statusElement.textContent = "Globo 3D indisponível neste navegador. Os links das coleções continuam acessíveis.";
@@ -240,7 +255,7 @@
   }
 
   buttons.forEach((button) => button.addEventListener("click", () => {
-    selectMission(button.dataset.focusMission, true);
+    selectMission(button.dataset.focusMission, !button.closest(".globe-index"));
   }));
   updateDetails();
   loadFeatured();
