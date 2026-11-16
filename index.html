@@ -1027,7 +1027,7 @@
         const todas = [];
         for (let offset = 0; ; offset += pageSize) {
             const response = await fetch(
-                `${SUPABASE_URL}/rest/v1/colecoes?select=*&order=title.asc,cmr_id.asc&limit=${pageSize}&offset=${offset}`,
+                `${SUPABASE_URL}/rest/v1/colecoes?select=cmr_id,title,short_name,data_center,platforms,updated_at&order=title.asc,cmr_id.asc&limit=${pageSize}&offset=${offset}`,
                 { headers: supabaseHeaders() }
             );
             if (!response.ok) {
