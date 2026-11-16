@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f7f4">
+  <meta name="theme-color" content="#f7f5ef">
   <title>NASA CMR | Catálogo de coleções</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,14 +15,14 @@
   <style>
     :root {
       color-scheme: light;
-      --paper: #f5f7f4;
-      --surface: #fff;
-      --ink: #17211f;
-      --muted: #687470;
-      --line: #dce3df;
-      --green: #166a55;
-      --green-soft: #e5f1eb;
-      --shadow: 0 16px 40px rgb(25 47 39 / 7%);
+      --paper: #f7f5ef;
+      --surface: #fffdfa;
+      --ink: #183744;
+      --muted: #627780;
+      --line: #d8e3e4;
+      --green: #1f6f89;
+      --green-soft: #e4f0f1;
+      --shadow: 0 16px 40px rgb(29 68 80 / 8%);
     }
 
     * {
@@ -35,7 +35,7 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(ellipse at 100% 0%, rgb(219 234 224 / 65%), transparent 35rem),
+        radial-gradient(ellipse at 100% 0%, rgb(209 230 234 / 70%), transparent 35rem),
         var(--paper);
       font: 15px/1.5 "DM Sans", sans-serif;
     }
@@ -62,8 +62,8 @@
       gap: 18px;
       min-height: 64px;
       padding: 0 max(24px, calc((100vw - 1180px) / 2));
-      color: #f6faf7;
-      background: #172a25;
+      color: #f7fbfa;
+      background: #173d50;
     }
 
     .brand {
@@ -78,22 +78,22 @@
       width: 32px;
       height: 32px;
       place-items: center;
-      border: 1px solid #95c3ad;
+      border: 1px solid #9ccbd1;
       border-radius: 50%;
-      color: #f18963;
+      color: #b8e0dd;
       font: 700 16px "Space Grotesk", sans-serif;
     }
 
     .brand small {
       display: block;
-      color: #b7c9c0;
+      color: #c8e2e5;
       font-size: 10px;
       letter-spacing: .8px;
       text-transform: uppercase;
     }
 
     .source-label {
-      color: #c1d2ca;
+      color: #d4e7e9;
       font-size: 12px;
     }
 
@@ -138,7 +138,7 @@
 
     .refresh-button,
     .pagination button {
-      border: 1px solid #bfcac4;
+      border: 1px solid #c0d0d3;
       border-radius: 6px;
       color: var(--ink);
       background: var(--surface);
@@ -210,7 +210,7 @@
     .field label {
       display: block;
       margin-bottom: 6px;
-      color: #40504a;
+      color: #3e5963;
       font-size: 12px;
       font-weight: 700;
     }
@@ -220,10 +220,10 @@
       width: 100%;
       height: 42px;
       padding: 0 11px;
-      border: 1px solid #cbd5cf;
+      border: 1px solid #cbd9db;
       border-radius: 5px;
       color: var(--ink);
-      background: #fff;
+      background: #fffdfa;
     }
 
     .clear-button {
@@ -291,8 +291,8 @@
 
     th {
       padding: 12px 16px;
-      color: #65716c;
-      background: #f7f9f7;
+      color: #667d84;
+      background: #f4f8f8;
       font-size: 10px;
       letter-spacing: .8px;
       text-transform: uppercase;
@@ -301,8 +301,8 @@
 
     td {
       padding: 14px 16px;
-      border-top: 1px solid #e9eeeb;
-      color: #40504a;
+      border-top: 1px solid #e9eff0;
+      color: #3e5963;
       font-size: 13px;
       vertical-align: top;
     }
@@ -337,8 +337,8 @@
     .platform-tag {
       padding: 3px 7px;
       border-radius: 3px;
-      color: #34594b;
-      background: #edf4ef;
+      color: #285e6e;
+      background: #e7f1f0;
       font-size: 11px;
     }
 
@@ -377,13 +377,13 @@
       margin-top: 20px;
       padding: 15px 18px;
       border-left: 3px solid var(--green);
-      background: #eaf0eb;
+      background: #e6eff0;
     }
 
     .pipeline-label,
     .pipeline-detail {
       display: block;
-      color: #52625b;
+      color: #526d76;
       font-size: 12px;
     }
 
@@ -446,6 +446,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="./missions.css">
 </head>
 
 <body>
@@ -607,6 +608,105 @@
       Os dados são coletados do NASA CMR pelo pipeline automatizado e armazenados
       no Supabase antes de serem apresentados neste painel.
     </p>
+
+    <section class="mission-section" id="missoes" aria-labelledby="mission-title">
+      <div class="mission-heading">
+        <p class="eyebrow">Planeta água · exploração de dados</p>
+        <h2 id="mission-title">Missões que ajudam a entender a Terra</h2>
+        <p>Seis missões conhecidas e uma coleção real do CMR para cada uma. Escolha uma missão para localizar no globo a área declarada pela coleção.</p>
+      </div>
+      <div class="mission-cards">
+      <article class="mission-card is-active" data-mission-card="landsat">
+        <div class="mission-card-top"><span class="mission-number">01</span><span class="mission-tag">Superfície terrestre</span></div>
+        <h3>Landsat</h3>
+        <p>Décadas de imagens para acompanhar florestas, cidades e mudanças na paisagem.</p>
+        <span class="mission-example">Coleção exemplo: Manguezais no sudeste da Ásia</span>
+        <div class="mission-card-actions">
+          <button type="button" class="mission-focus" data-focus-mission="landsat" aria-pressed="true">Ver no globo <span aria-hidden="true">↗</span></button>
+          <a href="https://science.nasa.gov/mission/landsat/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão Landsat no site da NASA">NASA ↗</a>
+        </div>
+      </article>
+      <article class="mission-card" data-mission-card="terra">
+        <div class="mission-card-top"><span class="mission-number">02</span><span class="mission-tag">Sistema terrestre</span></div>
+        <h3>Terra</h3>
+        <p>Observa a relação entre atmosfera, solo, oceanos e energia do planeta.</p>
+        <span class="mission-example">Coleção exemplo: Vegetação no Alasca</span>
+        <div class="mission-card-actions">
+          <button type="button" class="mission-focus" data-focus-mission="terra" aria-pressed="false">Ver no globo <span aria-hidden="true">↗</span></button>
+          <a href="https://science.nasa.gov/mission/terra/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão Terra no site da NASA">NASA ↗</a>
+        </div>
+      </article>
+      <article class="mission-card" data-mission-card="aqua">
+        <div class="mission-card-top"><span class="mission-number">03</span><span class="mission-tag">Ciclo da água</span></div>
+        <h3>Aqua</h3>
+        <p>Investiga água, nuvens, gelo e outras peças do ciclo hídrico global.</p>
+        <span class="mission-example">Coleção exemplo: Imagens MODIS sobre o Brasil</span>
+        <div class="mission-card-actions">
+          <button type="button" class="mission-focus" data-focus-mission="aqua" aria-pressed="false">Ver no globo <span aria-hidden="true">↗</span></button>
+          <a href="https://science.nasa.gov/mission/aqua/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão Aqua no site da NASA">NASA ↗</a>
+        </div>
+      </article>
+      <article class="mission-card" data-mission-card="gpm">
+        <div class="mission-card-top"><span class="mission-number">04</span><span class="mission-tag">Chuva e neve</span></div>
+        <h3>GPM</h3>
+        <p>Reúne observações de satélites para estudar a precipitação na Terra.</p>
+        <span class="mission-example">Coleção exemplo: Precipitação no Atlântico e Caribe</span>
+        <div class="mission-card-actions">
+          <button type="button" class="mission-focus" data-focus-mission="gpm" aria-pressed="false">Ver no globo <span aria-hidden="true">↗</span></button>
+          <a href="https://science.nasa.gov/mission/gpm/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão GPM no site da NASA">NASA ↗</a>
+        </div>
+      </article>
+      <article class="mission-card" data-mission-card="icesat">
+        <div class="mission-card-top"><span class="mission-number">05</span><span class="mission-tag">Gelo e relevo</span></div>
+        <h3>ICESat-2</h3>
+        <p>Mede a altura de gelo, oceanos e superfícies com pulsos de laser.</p>
+        <span class="mission-example">Coleção exemplo: Lagoas de degelo no Ártico</span>
+        <div class="mission-card-actions">
+          <button type="button" class="mission-focus" data-focus-mission="icesat" aria-pressed="false">Ver no globo <span aria-hidden="true">↗</span></button>
+          <a href="https://science.nasa.gov/mission/icesat-2/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão ICESat-2 no site da NASA">NASA ↗</a>
+        </div>
+      </article>
+      <article class="mission-card" data-mission-card="grace">
+        <div class="mission-card-top"><span class="mission-number">06</span><span class="mission-tag">Água armazenada</span></div>
+        <h3>GRACE-FO</h3>
+        <p>Acompanha variações da gravidade ligadas ao movimento da água.</p>
+        <span class="mission-example">Coleção exemplo: Água subterrânea nos Estados Unidos</span>
+        <div class="mission-card-actions">
+          <button type="button" class="mission-focus" data-focus-mission="grace" aria-pressed="false">Ver no globo <span aria-hidden="true">↗</span></button>
+          <a href="https://science.nasa.gov/mission/grace-fo/" target="_blank" rel="noopener noreferrer" aria-label="Sobre a missão GRACE-FO no site da NASA">NASA ↗</a>
+        </div>
+      </article>
+      </div>
+      <div class="globe-section" aria-labelledby="globe-title">
+        <div class="globe-header">
+          <div>
+            <p class="eyebrow">Exploração geográfica</p>
+            <h3 id="globe-title">Onde estão os dados?</h3>
+          </div>
+          <span class="globe-badge">Globo interativo 3D</span>
+        </div>
+        <div class="globe-layout">
+          <div class="globe-panel">
+            <div class="globe-fallback" aria-hidden="true"></div>
+            <div id="mission-globe" class="globe-canvas" role="img" aria-label="Globo 3D com as áreas geográficas de seis coleções do NASA CMR"></div>
+            <p id="globe-status" class="globe-status" role="status">Carregando áreas do Supabase…</p>
+          </div>
+          <aside class="globe-detail" aria-live="polite">
+            <span class="detail-eyebrow">Missão selecionada</span>
+            <h4 id="globe-mission-name">Landsat</h4>
+            <p id="globe-mission-description">Décadas de imagens para acompanhar florestas, cidades e mudanças na paisagem.</p>
+            <div class="detail-rule"></div>
+            <span class="detail-label">Coleção em destaque</span>
+            <strong id="globe-collection-title">Consultando o Supabase…</strong>
+            <span class="detail-label">Área registrada</span>
+            <p id="globe-area">Manguezais no sudeste da Ásia</p>
+            <a id="globe-cmr-link" href="https://cmr.earthdata.nasa.gov/search/concepts/C3604193990-ORNL_CLOUD" target="_blank" rel="noopener noreferrer">Abrir coleção no CMR ↗</a>
+          </aside>
+        </div>
+        <p class="globe-note">Os contornos mostram a cobertura espacial informada pela <a href="https://cmr.earthdata.nasa.gov/search/site/docs/search/api.html" target="_blank" rel="noopener noreferrer">NASA CMR</a> para uma coleção exemplo de cada missão. Eles não representam órbitas, trajetos ou posições em tempo real. Arraste para girar e use a roda do mouse para aproximar.</p>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -1062,5 +1162,6 @@
     loadCollections();
     loadPipeline();
   </script>
+  <script src="./missions.js" defer></script>
 </body>
 </html>
